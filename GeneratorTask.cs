@@ -26,6 +26,14 @@ namespace VehicleDataGenerator
 
         private string filenameLastPart;
 
+        private readonly double _lon_min;
+
+        private readonly double _lon_max;
+
+        private readonly double _lat_min;
+
+        private readonly double _lat_max;
+
         public List<string> Vins => vins;
 
         public int RowsPerBatch => rowsPerBatch;
@@ -42,7 +50,8 @@ namespace VehicleDataGenerator
 
         public string FilenameLastPart => filenameLastPart;
 
-        public GeneratorTask(int myDiffDays, DateTime myEndDate, List<string> myVins, int rowsPerBatch, string baseOutputDir, List<KeyValuePair<string, string>> columns)
+        public GeneratorTask(int myDiffDays, DateTime myEndDate, List<string> myVins, int rowsPerBatch, string baseOutputDir, List<KeyValuePair<string, string>> columns,
+            double lon_min, double lon_max, double lat_min, double lat_max)
         {
             vins = myVins;
             this.rowsPerBatch = rowsPerBatch;
@@ -97,10 +106,10 @@ namespace VehicleDataGenerator
                     result = Guid.NewGuid().ToString();
                     break;
                 case "GPS_LON":
-                    result = GetPseudoDoubleWithinRange(98.781003, 117.953953, prng).ToString(new CultureInfo("en-US")).Substring(0, 8);
+                    result = GetPseudoDoubleWithinRange(_lon_min, _lon_max, prng).ToString(new CultureInfo("en-US")).Substring(0, 8);
                     break;
                 case "GPS_LAT":
-                    result = GetPseudoDoubleWithinRange(24.846565, 38.891033, prng).ToString(new CultureInfo("en-US")).Substring(0, 8);
+                    result = GetPseudoDoubleWithinRange(_lat_min, _lat_max, prng).ToString(new CultureInfo("en-US")).Substring(0, 8);
                     break;
                 default:
                     if (prng.Next() > 1073741823)

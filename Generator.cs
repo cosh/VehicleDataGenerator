@@ -33,6 +33,12 @@ namespace VehicleDataGenerator
             int parallelTaskCount = _config.GetValue<int>("parallelTaskCount");
             string vinPrefix = _config.GetValue<string>("vinPrefix");
 
+            double lon_min = _config.GetValue<double>("lonMin");
+            double lon_max = _config.GetValue<double>("lonMax");
+            double lat_min = _config.GetValue<double>("latMin");
+            double lat_max = _config.GetValue<double>("latMax");
+
+
             string storageConnectionString = _config.GetValue<string>("storageConnectionString");
             string containerName = _config.GetValue<string>("containerName");
             string baseOutputDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
@@ -61,7 +67,7 @@ namespace VehicleDataGenerator
                     generatorTask.Run();
                     _logger.LogInformation("Finished GENERATING day " + generatorTask.Day);
                     return generatorTask;
-                }, new GeneratorTask(i, endDate, vins, rowsPerBatch, baseOutputDir, columns)).ContinueWith(delegate (Task<GeneratorTask> x)
+                }, new GeneratorTask(i, endDate, vins, rowsPerBatch, baseOutputDir, columns, lon_min, lon_max, lat_min, lat_max) { }).ContinueWith(delegate (Task<GeneratorTask> x)
                 {
                     GeneratorTask result2 = x.Result;
                     _logger.LogInformation("Started uploading day " + result2.Day);
