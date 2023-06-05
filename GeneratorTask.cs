@@ -61,6 +61,10 @@ namespace VehicleDataGenerator
             start = new DateTime(endOfDataGenerator.Year, endOfDataGenerator.Month, endOfDataGenerator.Day, 0, 0, 0);
             end = new DateTime(endOfDataGenerator.Year, endOfDataGenerator.Month, endOfDataGenerator.Day, 23, 59, 59);
             day = end.ToString("yyyyMMdd");
+            _lon_max = lon_max;
+            _lon_min = lon_min;
+            _lat_min = lat_min;
+            _lat_max = lat_max;
         }
 
         public void Run()
