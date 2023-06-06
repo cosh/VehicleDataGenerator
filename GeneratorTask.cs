@@ -97,22 +97,22 @@ namespace VehicleDataGenerator
             string result = "";
             switch (columnName)
             {
-                case "VIN":
+                case "vin":
                     result = vins[prng.Next(0, vins.Count)];
                     break;
-                case "TIMESTAMP":
+                case "ts":
                     result = tsString;
                     break;
-                case "BACKEND_TIMESTAMP":
+                case "backend_ts":
                     result = ts.AddSeconds(prng.Next(0, 30)).ToString("s");
                     break;
-                case "TRACEID":
+                case "traceId":
                     result = Guid.NewGuid().ToString();
                     break;
-                case "GPS_LON":
+                case "gps_lon":
                     result = GetPseudoDoubleWithinRange(_lon_min, _lon_max, prng).ToString(new CultureInfo("en-US")).Substring(0, 8);
                     break;
-                case "GPS_LAT":
+                case "gps_lat":
                     result = GetPseudoDoubleWithinRange(_lat_min, _lat_max, prng).ToString(new CultureInfo("en-US")).Substring(0, 8);
                     break;
                 default:
@@ -145,6 +145,12 @@ namespace VehicleDataGenerator
                     break;
                 case "DECIMAL":
                     result = (prng.NextDouble() * 100.0).ToString(new CultureInfo("en-US")).Substring(0, 6);
+                    break;
+                case "SMALLDECIMAL":
+                    result = (prng.NextDouble() * 50.0).ToString(new CultureInfo("en-US")).Substring(0, 6);
+                    break;
+                case "BIGDECIMAL":
+                    result = (prng.NextDouble() * 5000.0).ToString(new CultureInfo("en-US")).Substring(0, 6);
                     break;
                 case "TINYINT":
                     result = prng.Next(0, 5).ToString();
