@@ -115,6 +115,9 @@ namespace VehicleDataGenerator
                 case "gps_lat":
                     result = GetPseudoDoubleWithinRange(_lat_min, _lat_max, prng).ToString(new CultureInfo("en-US")).Substring(0, 8);
                     break;
+                case "warning_level":
+                    result = prng.Next(0, 3).ToString();
+                    break;
                 default:
                     if (prng.Next() > 1073741823)
                     {
