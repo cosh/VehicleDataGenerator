@@ -106,7 +106,7 @@ namespace VehicleDataGenerator
                 case "backend_ts":
                     result = ts.AddSeconds(prng.Next(0, 30)).ToString("s");
                     break;
-                case "traceId":
+                case "trace_id":
                     result = Guid.NewGuid().ToString();
                     break;
                 case "gps_lon":
